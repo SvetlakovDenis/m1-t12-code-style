@@ -1,17 +1,20 @@
 import java.util.Scanner;
 
 public class DepositCalculator {
-    double calculateComplexPercent(double amountOnDeposit, double yearRate, int depositPeriod) {
+    int places = 2;
+    double yearRate = 0.06; //Применено
+    
+    double calculateComplexPercent(double amountOnDeposit, int depositPeriod) {
         double depositSum = amountOnDeposit * Math.pow((1 + yearRate / 12), 12 * depositPeriod);
 
-        return roundDepositSum(depositSum, 2);// рассмотри возможность оптимизации метода roundDepositSum, чтобы не пришлось дублировать одну и ту же информацию (цифра 2 повторяется)
+        return roundDepositSum(depositSum);// рассмотри возможность оптимизации метода roundDepositSum, чтобы не пришлось дублировать одну и ту же информацию (цифра 2 повторяется)
     }
 
-    double calculateSimplePercent(double amountOnDeposit, double yearRate, int depositPeriod) { //тоже самое касается переменной yearRate, в целом мы ее нигде не меняем, поэтому можно ее один раз объвить 
-        return roundDepositSum(amountOnDeposit + amountOnDeposit * yearRate * depositPeriod, 2);
+    double calculateSimplePercent(double amountOnDeposit, int depositPeriod) { //тоже самое касается переменной yearRate, в целом мы ее нигде не меняем, поэтому можно ее один раз объвить 
+        return roundDepositSum(amountOnDeposit + amountOnDeposit * yearRate * depositPeriod);
     }
 
-    double roundDepositSum(double value, int places) {
+    double roundDepositSum(double value) {
         double scale = Math.pow(10, places);
 
         return Math.round(value * scale) / scale;
@@ -32,12 +35,12 @@ public class DepositCalculator {
         double resultOnDeposit = 0;
 
         if (action == 1) {
-            resultOnDeposit = calculateSimplePercent(amountOfMoney, 0.06, depositPeriod);
+            resultOnDeposit = calculateSimplePercent(amountOfMoney, depositPeriod);
         } else if (action == 2) {
-            resultOnDeposit = calculateComplexPercent(amountOfMoney, 0.06, depositPeriod);
+            resultOnDeposit = calculateComplexPercent(amountOfMoney, depositPeriod);
         }
-        System.out.println("Результат вклада: " + amountOfMoney + " за " + depositPeriod + " лет превратятся в " +// при переносе "+" в конце тоже рекомендуется перенести к resultOnDeposit
-                resultOnDeposit);
+        System.out.println("Результат вклада: " + amountOfMoney + " за " + depositPeriod + " лет превратятся в " // при переносе "+" в конце тоже рекомендуется перенести к resultOnDeposit
+                + resultOnDeposit); //Исправлено
     }
 
     public static void main(String[] args) {
