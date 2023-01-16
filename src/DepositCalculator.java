@@ -4,10 +4,10 @@ public class DepositCalculator {
     double calculateComplexPercent(double amountOnDeposit, double yearRate, int depositPeriod) {
         double depositSum = amountOnDeposit * Math.pow((1 + yearRate / 12), 12 * depositPeriod);
 
-        return roundDepositSum(depositSum, 2);
+        return roundDepositSum(depositSum, 2);// рассмотри возможность оптимизации метода roundDepositSum, чтобы не пришлось дублировать одну и ту же информацию (цифра 2 повторяется)
     }
 
-    double calculateSimplePercent(double amountOnDeposit, double yearRate, int depositPeriod) {
+    double calculateSimplePercent(double amountOnDeposit, double yearRate, int depositPeriod) { //тоже самое касается переменной yearRate, в целом мы ее нигде не меняем, поэтому можно ее один раз объвить 
         return roundDepositSum(amountOnDeposit + amountOnDeposit * yearRate * depositPeriod, 2);
     }
 
@@ -36,7 +36,7 @@ public class DepositCalculator {
         } else if (action == 2) {
             resultOnDeposit = calculateComplexPercent(amountOfMoney, 0.06, depositPeriod);
         }
-        System.out.println("Результат вклада: " + amountOfMoney + " за " + depositPeriod + " лет превратятся в " +
+        System.out.println("Результат вклада: " + amountOfMoney + " за " + depositPeriod + " лет превратятся в " +// при переносе "+" в конце тоже рекомендуется перенести к resultOnDeposit
                 resultOnDeposit);
     }
 
